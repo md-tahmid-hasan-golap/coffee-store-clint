@@ -31,6 +31,7 @@ const AddCoffee = () => {
             title: "Coffee Added Successfully!",
             icon: "success",
             draggable: true,
+            timer: 1500,
           });
           //form.reset()
         }
