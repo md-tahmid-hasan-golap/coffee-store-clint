@@ -1,9 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router";
+import { NavLink, Link } from "react-router-dom"; // react-router-dom থেকে নেওয়া
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  // active হলে bg-amber-500 যোগ হবে, না হলে কিছু না (empty string)
+  const activeClassName = "bg-amber-500";
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -16,13 +20,12 @@ const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              />
             </svg>
           </div>
           <ul
@@ -30,22 +33,54 @@ const Header = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link to="/">Home</Link>
+              <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? activeClassName : "")}
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/all-coffees">All Coffee's</Link>
+              <NavLink
+                to="/all-coffees"
+                className={({ isActive }) => (isActive ? activeClassName : "")}
+              >
+                All Coffee's
+              </NavLink>
             </li>
 
             {user && (
               <>
                 <li>
-                  <Link to="/addCoffee">Add Coffee</Link>
+                  <NavLink
+                    to="/addCoffee"
+                    className={({ isActive }) =>
+                      isActive ? activeClassName : ""
+                    }
+                  >
+                    Add Coffee
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/my-added-coffees"
+                    className={({ isActive }) =>
+                      isActive ? activeClassName : ""
+                    }
+                  >
+                    My Added Coffee's
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/my-added-coffees">My Added Coffee's</Link>
-                </li>
-                <li>
-                  <Link to="/my-orders">My Orders</Link>
+                  <NavLink
+                    to="/my-orders"
+                    className={({ isActive }) =>
+                      isActive ? activeClassName : ""
+                    }
+                  >
+                    My Orders
+                  </NavLink>
                 </li>
               </>
             )}
@@ -56,39 +91,79 @@ const Header = () => {
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1 items-center">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? activeClassName : "")}
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/all-coffees">All Coffee's</Link>
+            <NavLink
+              to="/all-coffees"
+              className={({ isActive }) => (isActive ? activeClassName : "")}
+            >
+              All Coffee's
+            </NavLink>
           </li>
 
           {user ? (
             <>
               <li>
-                <Link to="/addCoffee">Add Coffee</Link>
+                <NavLink
+                  to="/addCoffee"
+                  className={({ isActive }) =>
+                    isActive ? activeClassName : ""
+                  }
+                >
+                  Add Coffee
+                </NavLink>
               </li>
               <li>
-                <Link to="/my-added-coffees">My Added Coffee's</Link>
+                <NavLink
+                  to="/my-added-coffees"
+                  className={({ isActive }) =>
+                    isActive ? activeClassName : ""
+                  }
+                >
+                  My Added Coffee's
+                </NavLink>
               </li>
               <li>
-                <Link to="/my-orders">My Orders</Link>
+                <NavLink
+                  to="/my-orders"
+                  className={({ isActive }) =>
+                    isActive ? activeClassName : ""
+                  }
+                >
+                  My Orders
+                </NavLink>
               </li>
-              {user && (
-                <div className="flex justify-around items-center gap-2">
-                  {user?.photoURL && <img />}
-                  <button className="btn btn-warning" onClick={logOut}>
-                    Logout
-                  </button>
-                </div>
-              )}
+              <div className="flex justify-around items-center gap-2">
+                {user?.photoURL && (
+                  <img
+                    src={user.photoURL}
+                    referrerPolicy="no-referrer"
+                    alt="avatar"
+                    className="w-8 h-8 rounded-full hidden md:flex"
+                  />
+                )}
+                <button className="btn btn-warning" onClick={logOut}>
+                  Logout
+                </button>
+              </div>
             </>
           ) : (
             <>
               <li>
-                <Link to="/signin">Login</Link>
+                <Link to="/signin" className="">
+                  Login
+                </Link>
               </li>
               <li>
-                <Link to="/signup">Register</Link>
+                <Link to="/signup" className="">
+                  Register
+                </Link>
               </li>
             </>
           )}

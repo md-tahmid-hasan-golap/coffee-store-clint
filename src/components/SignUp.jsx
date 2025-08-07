@@ -5,8 +5,20 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const SignUp = () => {
-  const { createUser, setUser, updateUser } = useContext(AuthContext);
+  const { createUser, setUser, updateUser, SignInWithGoogle } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleSignInWithGoogle = () => {
+    SignInWithGoogle()
+      .then((result) => {
+        console.log(result);
+        navigate(location.state?.from?.pathname || "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -71,6 +83,12 @@ const SignUp = () => {
           </div>
           <button className="btn btn-neutral mt-4">Sign up</button>
         </form>
+        <button
+          onClick={handleSignInWithGoogle}
+          className="btn btn-outline btn-neutral w-full flex items-center justify-center gap-2"
+        >
+          Sign in with Google
+        </button>
       </div>
     </div>
   );
