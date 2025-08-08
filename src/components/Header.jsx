@@ -64,7 +64,7 @@ const Header = () => {
 
                 <li>
                   <NavLink
-                    to="/my-added-coffees"
+                    to={`/my-added-coffees/${user?.email}`}
                     className={({ isActive }) =>
                       isActive ? activeClassName : ""
                     }

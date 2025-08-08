@@ -1,33 +1,45 @@
-import { Link } from 'react-router'
+import { Link } from "react-router-dom";
 
 const CoffeeCard = ({ coffee }) => {
-  const { _id, name, price, quantity, photo } = coffee
+  const { _id, name, price, quantity, photo } = coffee;
 
   return (
-    <div className='card card-side bg-base-100 shadow-sm border-2'>
-      <figure>
-        <img src={photo} alt='Movie' />
+    <div className="card bg-base-100 shadow-md border rounded-lg overflow-hidden flex flex-col md:flex-row">
+      {/* Image */}
+      <figure className="w-full md:w-1/3">
+        <img
+          src={photo}
+          alt={name}
+          className="w-full h-48 md:h-full object-cover"
+        />
       </figure>
-      <div className='flex mt-8 w-full justify-around'>
-        <div>
-          <h2 className=''>{name}</h2>
-          <p>Price: {price}</p>
-          <p>Quantity: {quantity}</p>
+
+      {/* Details & Buttons */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 gap-4">
+        {/* Coffee Info */}
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold">{name}</h2>
+          <p className="text-gray-600">
+            Price: <span className="font-medium">${price}</span>
+          </p>
+          <p className="text-gray-600">
+            Quantity: <span className="font-medium">{quantity}</span>
+          </p>
         </div>
-        <div className='card-actions justify-end'>
-          <div className='join join-vertical space-y-2'>
-            <Link to={`/coffee/${_id}`}>
-              <button className='btn join-item'>View</button>
-            </Link>
-            <Link to={`/updateCoffee/${_id}`}>
-              <button className='btn join-item'>Edit</button>
-            </Link>
-            <button className='btn join-item'>X</button>
-          </div>
+
+        {/* Action Buttons */}
+        <div className="flex md:flex-col gap-2">
+          <Link to={`/coffee/${_id}`}>
+            <button className="btn btn-sm btn-outline">View</button>
+          </Link>
+          <Link to={`/updateCoffee/${_id}`}>
+            <button className="btn btn-sm btn-warning">Edit</button>
+          </Link>
+          <button className="btn btn-sm btn-error text-white">Delete</button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CoffeeCard
+export default CoffeeCard;

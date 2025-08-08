@@ -11,15 +11,19 @@ import CoffeeDetails from "./components/CoffeeDetails.jsx";
 import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import AuthProvider from "./contexts/AuthProvider.jsx";
+import axios from "axios";
+import MyAddedCoffee from "./components/MyAddedCoffee.jsx";
+import Errorpage from "./components/Errorpage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <Errorpage></Errorpage>,
     Component: MainLayout,
     children: [
       {
         index: true,
-
+        loader: () => axios("http://localhost:3000/coffees"),
         Component: Home,
       },
       {
@@ -27,7 +31,9 @@ const router = createBrowserRouter([
         Component: AddCoffee,
       },
       {
-        path: "coffee/:id",
+        path: "/coffee/:id",
+        loader: ({ params }) =>
+          axios(`http://localhost:3000/coffee/${params.id}`),
 
         Component: CoffeeDetails,
       },
@@ -43,6 +49,12 @@ const router = createBrowserRouter([
       {
         path: "signup",
         Component: SignUp,
+      },
+      {
+        path: "/my-added-coffees/:email",
+        loader: ({ params }) =>
+          axios(`http://localhost:3000/my-coffees/${params.email}`),
+        Component: MyAddedCoffee,
       },
     ],
   },

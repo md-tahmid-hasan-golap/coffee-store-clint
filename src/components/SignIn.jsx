@@ -1,8 +1,9 @@
 import { useContext } from "react";
 
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthProvider";
+import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
   const { signIn, SignInWithGoogle } = useContext(AuthContext);
@@ -71,8 +72,15 @@ const SignIn = () => {
           onClick={handleSignInWithGoogle}
           className="btn btn-outline btn-neutral w-full flex items-center justify-center gap-2"
         >
-          Sign in with Google
+          <FcGoogle size={25} /> Sign in with Google
         </button>
+
+        <p className="text-center pt-4">
+          Don,t An Account ?{" "}
+          <Link to="/signup" className="text-blue-500">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );
