@@ -5,7 +5,7 @@ import { FaCoffee } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
-  // console.log("User email:", user?.email);
+  console.log("User email:", user?.email);
 
   // active হলে bg-amber-500 যোগ হবে, না হলে কিছু না (empty string)
   const activeClassName = "bg-amber-500";
@@ -66,7 +66,7 @@ const Header = () => {
 
                 <li>
                   <NavLink
-                    to={`/my-added-coffees/${user?.email}`}
+                    to="/my-added-coffees"
                     className={({ isActive }) =>
                       isActive ? activeClassName : ""
                     }

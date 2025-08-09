@@ -52,9 +52,9 @@ const router = createBrowserRouter([
         Component: SignUp,
       },
       {
-        path: "/my-added-coffees/:email",
-        loader: ({ params }) =>
-          axios(`http://localhost:3000/my-coffees/${params.email}`),
+        path: "my-added-coffees",
+        // loader: ({ params }) =>
+        // axios(`http://localhost:3000/my-coffees/${params.email}`),
         element: (
           <PrivateRoute>
             <MyAddedCoffee></MyAddedCoffee>
