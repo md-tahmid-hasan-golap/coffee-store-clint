@@ -29,19 +29,31 @@ const router = createBrowserRouter([
       },
       {
         path: "addCoffee",
-        Component: AddCoffee,
+        element: (
+          <PrivateRoute>
+            <AddCoffee></AddCoffee>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/coffee/:id",
         loader: ({ params }) =>
           axios(`http://localhost:3000/coffee/${params.id}`),
 
-        Component: CoffeeDetails,
+        element: (
+          <PrivateRoute>
+            <CoffeeDetails></CoffeeDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "updateCoffee/:id",
 
-        Component: UpdateCoffee,
+        element: (
+          <PrivateRoute>
+            <UpdateCoffee></UpdateCoffee>
+          </PrivateRoute>
+        ),
       },
       {
         path: "signin",

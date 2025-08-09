@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
+import axios from "axios";
 
 const CoffeeDetails = () => {
+  const { user } = useContext(AuthContext);
   const { data: coffee } = useLoaderData();
+
   const {
+    _id,
     name,
     price,
     quantity,
@@ -14,7 +19,32 @@ const CoffeeDetails = () => {
     supplier,
     likedBy,
   } = coffee || {};
+  const [liked, setLiked] = useState(likedBy.includes(user?.email));
+  const [likeCount, setLikeCount] = useState(likedBy.length);
+  // console.log("is liked ?:", liked);
 
+  const handleLiked = () => {
+    // if (user?.email === email) return alert("Lojja kore na vai");
+    //handle like toggol api fetch
+
+    axios
+      .patch(`http://localhost:3000/like/${_id}`, { email: user?.email })
+      .then((data) => {
+        // console.log(data.data);
+        const isLiked = data?.data?.liked;
+        // console.log(data.data);
+        setLiked(isLiked);
+
+        setLikeCount((prev) => (isLiked ? prev + 1 : prev - 1));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleOrder = () => {
+    ///
+  };
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full bg-white rounded-xl shadow-md overflow-hidden border border-amber-100">
@@ -59,7 +89,7 @@ const CoffeeDetails = () => {
                 {email}
               </div>
             )}
-            <span>Liked : {likedBy.length}</span>
+            <span>Liked : {likeCount}</span>
           </div>
           <div className="flex items-center justify-center gap-5">
             <div className="flex justify-center mt-4">
@@ -68,8 +98,11 @@ const CoffeeDetails = () => {
               </button>
             </div>
             <div className="flex justify-center mt-4">
-              <button className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition-colors">
-                Liked
+              <button
+                onClick={handleLiked}
+                className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition-colors"
+              >
+                👍 {liked ? "Liked" : "Like"}
               </button>
             </div>
           </div>
