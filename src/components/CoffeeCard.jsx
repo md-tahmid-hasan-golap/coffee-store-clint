@@ -1,3 +1,4 @@
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CoffeeCard = ({ coffee }) => {
@@ -30,12 +31,18 @@ const CoffeeCard = ({ coffee }) => {
         {/* Action Buttons */}
         <div className="flex md:flex-col gap-2">
           <Link to={`/coffee/${_id}`}>
-            <button className="btn btn-sm btn-outline">View</button>
+            <button className="btn btn-sm btn-outline hover:bg-amber-100 hover:border-amber-500">
+              <FaEye className="text-amber-600" size={20} />
+            </button>
           </Link>
           <Link to={`/updateCoffee/${_id}`}>
-            <button className="btn btn-sm btn-warning">Edit</button>
+            <button className="btn btn-sm btn-warning hover:bg-amber-500 hover:border-amber-600">
+              <FaEdit className="text-white" size={18} />
+            </button>
           </Link>
-          <button className="btn btn-sm btn-error text-white">Delete</button>
+          <button className="btn btn-sm btn-error text-white hover:bg-red-600 hover:border-red-700">
+            <FaTrash size={16} className="mr-1" />
+          </button>
         </div>
       </div>
     </div>

@@ -14,11 +14,12 @@ import AuthProvider from "./contexts/AuthProvider.jsx";
 import axios from "axios";
 import MyAddedCoffee from "./components/MyAddedCoffee.jsx";
 import Errorpage from "./components/Errorpage.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <Errorpage></Errorpage>,
+    // errorElement: <Errorpage></Errorpage>,
     Component: MainLayout,
     children: [
       {
@@ -54,7 +55,11 @@ const router = createBrowserRouter([
         path: "/my-added-coffees/:email",
         loader: ({ params }) =>
           axios(`http://localhost:3000/my-coffees/${params.email}`),
-        Component: MyAddedCoffee,
+        element: (
+          <PrivateRoute>
+            <MyAddedCoffee></MyAddedCoffee>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { NavLink, Link } from "react-router-dom"; // react-router-dom থেকে নেওয়া
 import { AuthContext } from "../contexts/AuthProvider";
+import { FaCoffee } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  // console.log("User email:", user?.email);
 
   // active হলে bg-amber-500 যোগ হবে, না হলে কিছু না (empty string)
   const activeClassName = "bg-amber-500";
@@ -86,7 +88,10 @@ const Header = () => {
             )}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Coffee Store</a>
+        <a className="btn btn-ghost normal-case text-2xl font-bold text-amber-700 flex items-center gap-2">
+          <FaCoffee className="text-amber-600" />
+          Coffee Store
+        </a>
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1 items-center">
